@@ -45,7 +45,7 @@ class Line:
 
 
 class Cell:
-    def __init__(self, window):
+    def __init__(self, window=None):
         self.has_left_wall = True
         self.has_right_wall = True
         self.has_top_wall = True
@@ -87,6 +87,8 @@ class Cell:
         if undo:
             fill_color = "gray"
         
+        if self.__win is None:
+            return
         self.__win.draw_line(line, fill_color)
         
     def center_of_cell(self):
