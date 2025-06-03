@@ -57,6 +57,8 @@ class Cell:
         self.__win = window
 
     def draw(self, x1, x2, y1, y2):
+        if self.__win is None:
+            return
         self.__x1 = x1
         self.__x2 = x2
         self.__y1 = y1
@@ -65,11 +67,29 @@ class Cell:
             line = Line(Point(self.__x1, self.__y2), Point(self.__x1, self.__y1))
             self.__win.draw_line(line)
         if self.has_top_wall:
-            line = Line(Point(self.__x1, self.__y2), Point(self.__x2, self.__y2))
+            line = Line(Point(self.__x1, self.__y1), Point(self.__x2, self.__y1))
             self.__win.draw_line(line)
         if self.has_right_wall:
             line = Line(Point(self.__x2, self.__y2), Point(self.__x2, self.__y1))
             self.__win.draw_line(line)
         if self.has_bottom_wall:
-            line = Line(Point(self.__x1, self.__y1), Point(self.__x2, self.__y1))
+            line = Line(Point(self.__x1, self.__y2), Point(self.__x2, self.__y2))
             self.__win.draw_line(line)
+    
+    def draw_move(self, to_cell, undo=False):
+        line = Line(
+            Point(self.center_of_cell()[0], self.center_of_cell()[1]), 
+            Point(to_cell.center_of_cell()[0], to_cell.center_of_cell()[1]),
+        )
+        print(self.center_of_cell()[0], self.center_of_cell()[1],to_cell.center_of_cell()[0], to_cell.center_of_cell()[1])
+        
+        fill_color = "red"
+        if undo:
+            fill_color = "gray"
+        
+        self.__win.draw_line(line, fill_color)
+        
+    def center_of_cell(self):
+        x = (self.__x1 + self.__x2) // 2
+        y = (self.__y1 + self.__y2) // 2
+        return x, y
