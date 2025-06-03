@@ -23,14 +23,17 @@ class Maze:
         
     
     def __draw_cell(self, i, j):
-        cell = self.__cells[i][j]
-        x1 = self.__x1 + (self.__cell_size_x * (i + 1))
-        x2 = self.__x1 + (self.__cell_size_x * (i + 2))
-        y1 = self.__y1 + (self.__cell_size_y * (j + 1))
-        y2 = self.__y1 + (self.__cell_size_y * (j + 2))
-        cell.draw(x1, x2, y1, y2)
+        if self.__win is None:
+            return
+        x1 = self.__x1 + self.__cell_size_x * i
+        x2 = x1 + self.__cell_size_x
+        y1 = self.__y1 + self.__cell_size_y * j
+        y2 = y1 + self.__cell_size_y
+        self.__cells[i][j].draw(x1, x2, y1, y2)
         self.__animate()
     
     def __animate(self):
+        if self.__win is None:
+            return
         self.__win.redraw()
         time.sleep(0.05)
