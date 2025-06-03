@@ -6,7 +6,7 @@ class Window:
         self.__root = Tk()
         self.__root.title("Maze Solver")
         self.__root.protocol("WM_DELETE_WINDOW", self.close)
-        self.__canvas = Canvas(self.__root, bg="gray", height=height, width=width)
+        self.__canvas = Canvas(self.__root, bg="white", height=height, width=width)
         self.__canvas.pack(fill=BOTH, expand=1)
         self.__running = False
 
@@ -63,18 +63,32 @@ class Cell:
         self.__x2 = x2
         self.__y1 = y1
         self.__y2 = y2
+
+        no_wall_color = "red"
+
+        left_wall_line = Line(Point(self.__x1, self.__y2), Point(self.__x1, self.__y1))
         if self.has_left_wall:
-            line = Line(Point(self.__x1, self.__y2), Point(self.__x1, self.__y1))
-            self.__win.draw_line(line)
+            self.__win.draw_line(left_wall_line)
+        else:
+            self.__win.draw_line(left_wall_line, no_wall_color)
+        
+        top_wall_line = Line(Point(self.__x1, self.__y1), Point(self.__x2, self.__y1))
         if self.has_top_wall:
-            line = Line(Point(self.__x1, self.__y1), Point(self.__x2, self.__y1))
-            self.__win.draw_line(line)
+            self.__win.draw_line(top_wall_line)
+        else:
+            self.__win.draw_line(top_wall_line, no_wall_color)
+        
+        right_wall_line = Line(Point(self.__x2, self.__y2), Point(self.__x2, self.__y1))
         if self.has_right_wall:
-            line = Line(Point(self.__x2, self.__y2), Point(self.__x2, self.__y1))
-            self.__win.draw_line(line)
+            self.__win.draw_line(right_wall_line)
+        else:
+            self.__win.draw_line(right_wall_line, no_wall_color)
+        
+        bottom_wall_line = Line(Point(self.__x1, self.__y2), Point(self.__x2, self.__y2))
         if self.has_bottom_wall:
-            line = Line(Point(self.__x1, self.__y2), Point(self.__x2, self.__y2))
-            self.__win.draw_line(line)
+            self.__win.draw_line(bottom_wall_line)
+        else:
+            self.__win.draw_line(bottom_wall_line, no_wall_color)
     
     def draw_move(self, to_cell, undo=False):
         line = Line(
