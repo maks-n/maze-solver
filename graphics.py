@@ -96,7 +96,6 @@ class Cell:
             Point(self.center_of_cell()[0], self.center_of_cell()[1]), 
             Point(to_cell.center_of_cell()[0], to_cell.center_of_cell()[1]),
         )
-        print(self.center_of_cell()[0], self.center_of_cell()[1],to_cell.center_of_cell()[0], to_cell.center_of_cell()[1])
         
         fill_color = "red"
         if undo:
