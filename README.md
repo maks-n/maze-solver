@@ -8,6 +8,8 @@ Technologies used:
 - Python (version 3.10+)
 - Tkinter
 
+![Maze Demo](maze-demo.gif)
+
 ## Tkinter
 
 Check if Tkinter is installed:
